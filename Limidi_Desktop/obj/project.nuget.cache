@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "8jrh4OSKKztYet2+MBlSjJPIuGyIb/nTECOe1bK41+pv1ds0i48X4IofyP386t9+F/RkvpGOiR1jUQCzEbEn/Q==",
+  "success": true,
+  "projectFilePath": "C:\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Milla\\.nuget\\packages\\managed-midi\\1.9.14\\managed-midi.1.9.14.nupkg.sha512",
+    "C:\\Users\\Milla\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Milla\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Milla\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Milla\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Milla\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Milla\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
