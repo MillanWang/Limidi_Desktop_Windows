@@ -27,3 +27,8 @@ C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\r
 C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\Limidi_Desktop.pdb
 C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\Limidi_Desktop.genruntimeconfig.cache
 C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\ref\Limidi_Desktop.dll
+C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\staticwebassets\msbuild.Limidi_Desktop.Microsoft.AspNetCore.StaticWebAssets.props
+C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\staticwebassets\msbuild.build.Limidi_Desktop.props
+C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\staticwebassets\msbuild.buildMultiTargeting.Limidi_Desktop.props
+C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\staticwebassets\msbuild.buildTransitive.Limidi_Desktop.props
+C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\obj\Release\net6.0\staticwebassets.pack.json
