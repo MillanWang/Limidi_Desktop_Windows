@@ -5,6 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\bin\Release\net6.0\publish\</_PublishTargetUrl>
-    <History>True|2022-08-09T02:49:45.4387478Z;</History>
+    <History>True|2022-12-30T04:42:33.2887432Z;</History>
+    <LastFailureDetails />
   </PropertyGroup>
 </Project>
