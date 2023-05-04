@@ -21,7 +21,7 @@ namespace Limidi_Desktop.Controllers
         [HttpPut(Name = "PutMidiDevices")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult PutMidiDevices(int deviceID)
+        public IActionResult PutMidiDevices([FromQuery(Name = "deviceID")] int deviceID)
         {
             if (this._midiEventSender.SetCurrentInputDevice(deviceID))
             {

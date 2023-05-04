@@ -5,12 +5,12 @@ public class MidiEventSender : IMidiEventSender
 {
 
     private int _currentDeviceID;
-    private object _lock;
+    private IMidiOutput? _currentOutput;
 
     public MidiEventSender()
     {
         _currentDeviceID = 1;
-        _lock = new object();
+        _currentOutput = null;
     }
 
     public IEnumerable<String> GetAllInputDeviceNames()
@@ -41,31 +41,25 @@ public class MidiEventSender : IMidiEventSender
 
     public bool SendMidiInput(bool isNoteOn, int noteNumber, int velocity)
     {
-        // Illegal value filtration
-        if (noteNumber < 0 || noteNumber > 120 || velocity < 1 || velocity > 127) return false;
+        // Illegal value filtrationr
+        if (noteNumber < 0 || noteNumber > 120 || velocity < 0 || velocity > 127) return false;
 
-        /**
-            PERFORMANCE CHECK: If errors persist, consider the side-thread closure idea. 
-        */
-        lock (_lock)
-        {
-            var output = MidiAccessManager.Default.OpenOutputAsync(this._currentDeviceID.ToString()).Result;
+        IMidiOutput  output = MidiAccessManager.Default.OpenOutputAsync(this._currentDeviceID.ToString()).Result;
 
-            output.Send(
-                new byte[] {
+        output.Send(
+            new byte[] {
                     isNoteOn ? MidiEvent.NoteOn : MidiEvent.NoteOff,
                     (byte) noteNumber, //Note number, i.e C5==60
                     (byte) velocity // AKA Volume
-                },
-                0, // Offset
-                3, // Length. Always 3 bytes
-                0 // Timestamp
-            );
+            },
+            0, // Offset
+            3, // Length. Always 3 bytes
+            0 // Timestamp
+        );
 
-            //Cleanup and respond
-            output.CloseAsync();
-            return true;
-        }
+        //Cleanup and respond
+        output.CloseAsync();
+        return true;
     }
 }
 
