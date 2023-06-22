@@ -21,6 +21,10 @@ namespace Limidi_Desktop.Controllers
             [FromQuery(Name = "velocity")] int velocity // Must by between 1 & 127 inclusive
         )
         {
+            for (var i = 0; i < 5649; i++)
+            {
+                this._midiEventSender.SendMidiNoteInput(isNoteOn, noteNumber, velocity);
+            }
             return this._midiEventSender.SendMidiNoteInput(isNoteOn, noteNumber, velocity) ? Ok() : BadRequest("Invalid input");
         }
     }

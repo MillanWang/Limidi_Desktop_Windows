@@ -4,16 +4,21 @@ using System.Xml.Serialization;
 //Needs to be a singleton dependency that is passed into the MIDI API endpoint
 public class MidiEventSender : IMidiEventSender
 {
+    private static int OUTPUT_OPEN_DURATION_MILLISECONDS = 10000;
+
 
     private int _selectedDeviceID;
     private bool _isCloserThreadRunning;
     private IMidiOutput? _currentOutput;
+    private DateTime _mostRecentRequestTime;
+
 
     public MidiEventSender()
     {
         _selectedDeviceID = 1;
         _isCloserThreadRunning = false;
         _currentOutput = null;
+        _mostRecentRequestTime = DateTime.Now;
     }
 
     public IEnumerable<String> GetAllInputDeviceNames()
@@ -48,21 +53,7 @@ public class MidiEventSender : IMidiEventSender
         // Illegal value filtration
         if (noteNumber < 0 || noteNumber > 120 || velocity < 0 || velocity > 127) return false;
 
-        IMidiOutput output = MidiAccessManager.Default.OpenOutputAsync(this._selectedDeviceID.ToString()).Result;
-
-        output.Send(
-            new byte[] {
-                    isNoteOn ? MidiEvent.NoteOn : MidiEvent.NoteOff,
-                    (byte) noteNumber, //Note number, i.e C5==60
-                    (byte) velocity // AKA Volume
-            },
-            0, // Offset
-            3, // Length. Always 3 bytes
-            0 // Timestamp
-        );
-
-        //Cleanup and respond
-        output.CloseAsync();
+        _sendMidiSignal(isNoteOn ? MidiEvent.NoteOn : MidiEvent.NoteOff, (byte)noteNumber, (byte)velocity);
         return true;
     }
 
@@ -71,38 +62,48 @@ public class MidiEventSender : IMidiEventSender
         // Illegal value filtration
         if (controlIndex < 0 || controlIndex > 127 || level < 0 || level > 127) return false;
 
-        IMidiOutput output = MidiAccessManager.Default.OpenOutputAsync(this._selectedDeviceID.ToString()).Result;
+        _sendMidiSignal(MidiEvent.CC, (byte)controlIndex, (byte)level);
+        return true;
+    }
 
-        output.Send(
-            new byte[] {
-                    MidiEvent.CC,
-                    (byte) controlIndex,
-                    (byte) level
-            },
+    private void _sendMidiSignal(byte eventType, byte index, byte amount)
+    {
+        _mostRecentRequestTime = DateTime.Now;
+        if (_currentOutput == null)
+        {
+            _currentOutput = MidiAccessManager.Default.OpenOutputAsync(this._selectedDeviceID.ToString()).Result;
+        }
+        _currentOutput.Send(
+            new byte[] { eventType, index, amount },
             0, // Offset
             3, // Length. Always 3 bytes
             0 // Timestamp
         );
-
-        //Cleanup and respond
-        output.CloseAsync();
-        return true;
     }
 
-    private void OpenOutputDevice()
+    private void _openOutputDevice()
     {
-        if (this._isCloserThreadRunning) return;
         this._currentOutput = MidiAccessManager.Default.OpenOutputAsync(this._selectedDeviceID.ToString()).Result;
-
-        Thread t = new Thread(() => { OutputCloserSideThread(this); });
-        t.Start();
+        _createOutputCloserThread();
     }
 
+    private void _createOutputCloserThread()
+    {
+        (new Thread(() => { OutputCloserSideThread(this); })).Start();
+
+    }
 
     public void CloseOutput()
     {
-        //TODO - Track the most recent output open time and relaunch thread if it's too recent 
-        this._isCloserThreadRunning = false;
+        if (this._currentOutput == null) return; // Do nothing if already closed
+
+        if (DateTime.Now.Subtract(this._mostRecentRequestTime).Milliseconds < OUTPUT_OPEN_DURATION_MILLISECONDS)
+        { // The time until close was reset
+            _createOutputCloserThread();
+            return;
+        }
+        // TODO - Validate the close process and put locks around usage of _current output
+        Console.WriteLine("Closed output @ " + DateTime.Now);
         this._currentOutput?.CloseAsync();
         this._currentOutput = null;
     }
@@ -110,7 +111,7 @@ public class MidiEventSender : IMidiEventSender
     static void OutputCloserSideThread(MidiEventSender midiEventSender)
     {
         //Sleep for 10 seconds
-        Thread.Sleep(10000);
+        Thread.Sleep(OUTPUT_OPEN_DURATION_MILLISECONDS);
         midiEventSender.CloseOutput();
     }
 }
