@@ -1,14 +1,11 @@
 ﻿using Commons.Music.Midi;
-using System.Xml.Serialization;
 
-//Needs to be a singleton dependency that is passed into the MIDI API endpoint
 public class MidiEventSender : IMidiEventSender
 {
     private static int OUTPUT_OPEN_DURATION_MILLISECONDS = 10000;
 
 
     private int _selectedDeviceID;
-    private bool _isCloserThreadRunning;
     private IMidiOutput? _currentOutput;
     private DateTime _mostRecentRequestTime;
 
@@ -16,7 +13,6 @@ public class MidiEventSender : IMidiEventSender
     public MidiEventSender()
     {
         _selectedDeviceID = 1;
-        _isCloserThreadRunning = false;
         _currentOutput = null;
         _mostRecentRequestTime = DateTime.Now;
     }
@@ -71,7 +67,8 @@ public class MidiEventSender : IMidiEventSender
         _mostRecentRequestTime = DateTime.Now;
         if (_currentOutput == null)
         {
-            _currentOutput = MidiAccessManager.Default.OpenOutputAsync(this._selectedDeviceID.ToString()).Result;
+            this._currentOutput = MidiAccessManager.Default.OpenOutputAsync(this._selectedDeviceID.ToString()).Result;
+            _createOutputCloserThread();
         }
         _currentOutput.Send(
             new byte[] { eventType, index, amount },
@@ -81,24 +78,17 @@ public class MidiEventSender : IMidiEventSender
         );
     }
 
-    private void _openOutputDevice()
-    {
-        this._currentOutput = MidiAccessManager.Default.OpenOutputAsync(this._selectedDeviceID.ToString()).Result;
-        _createOutputCloserThread();
-    }
-
     private void _createOutputCloserThread()
     {
         (new Thread(() => { OutputCloserSideThread(this); })).Start();
-
     }
 
     public void CloseOutput()
     {
         if (this._currentOutput == null) return; // Do nothing if already closed
-
-        if (DateTime.Now.Subtract(this._mostRecentRequestTime).Milliseconds < OUTPUT_OPEN_DURATION_MILLISECONDS)
+        if (DateTime.Now.Subtract(this._mostRecentRequestTime).TotalMilliseconds <= OUTPUT_OPEN_DURATION_MILLISECONDS)
         { // The time until close was reset
+            Console.WriteLine("Previous close thread jumped. Make new one");
             _createOutputCloserThread();
             return;
         }
@@ -110,7 +100,7 @@ public class MidiEventSender : IMidiEventSender
 
     static void OutputCloserSideThread(MidiEventSender midiEventSender)
     {
-        //Sleep for 10 seconds
+        //Sleep expects milliseconds
         Thread.Sleep(OUTPUT_OPEN_DURATION_MILLISECONDS);
         midiEventSender.CloseOutput();
     }

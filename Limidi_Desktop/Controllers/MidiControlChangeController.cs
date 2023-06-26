@@ -21,11 +21,6 @@ namespace Limidi_Desktop.Controllers
             [FromQuery(Name = "level")] int level
         )
         {
-            Console.WriteLine("CC get call");
-            for (var i = 0; i < 5649; i++)
-            {
-                this._midiEventSender.SendMidiControlChange(controlIndex, level);
-            }
             return this._midiEventSender.SendMidiControlChange(controlIndex, level) ? Ok() : BadRequest("Invalid input");
         }
     }
