@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj": {}
+    "C:\\MW\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj": {}
   },
   "projects": {
-    "C:\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj": {
+    "C:\\MW\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj",
+        "projectUniqueName": "C:\\MW\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj",
         "projectName": "Limidi_Desktop",
-        "projectPath": "C:\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj",
+        "projectPath": "C:\\MW\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\Limidi_Desktop.csproj",
         "packagesPath": "C:\\Users\\Milla\\.nuget\\packages\\",
-        "outputPath": "C:\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\obj\\",
+        "outputPath": "C:\\MW\\1MM\\Services\\LimidiDesktop\\Limidi_Desktop\\Limidi_Desktop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Milla\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -68,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
