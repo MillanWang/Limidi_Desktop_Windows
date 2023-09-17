@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\bin\Release\net6.0\publish\</_PublishTargetUrl>
-    <History>True|2022-12-30T21:44:09.9408093Z;True|2022-12-30T16:29:17.1177325-05:00;True|2022-12-29T23:42:33.2887432-05:00;</History>
+    <_PublishTargetUrl>C:\MW\1MM\Services\LimidiDesktop\Limidi_Desktop\Limidi_Desktop\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2023-05-05T16:10:51.2259650Z;True|2022-12-30T16:44:09.9408093-05:00;True|2022-12-30T16:29:17.1177325-05:00;True|2022-12-29T23:42:33.2887432-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
