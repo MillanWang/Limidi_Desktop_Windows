@@ -1,42 +1,17 @@
 ﻿using Commons.Music.Midi;
 
-public class MidiEventSender : IMidiEventSender
+/*OLD loopMidi approach. Need the licesnse to get away from this ol thing*/
+public class LegacyMidiEventSender : IMidiEventSender
 {
     private int _selectedDeviceID;
     private IMidiOutput? _currentOutput;
 
-    public MidiEventSender()
+    public LegacyMidiEventSender()
     {
         _selectedDeviceID = 1;
         _currentOutput = null;
     }
 
-    public IEnumerable<String> GetAllInputDeviceNames()
-    {
-        var rawOutputs = MidiAccessManager.Default.Outputs;
-        var outputNames = new List<string>();
-        foreach (var output in rawOutputs)
-        {
-            outputNames.Add(output.Name);
-        }
-        return outputNames;
-    }
-
-    public string GetCurrentInputDeviceName()
-    {
-        return MidiAccessManager.Default.Outputs.ToList<IMidiPortDetails>()[_selectedDeviceID].Name;
-    }
-
-    public bool SetCurrentInputDevice(int deviceID)
-    {
-        if (deviceID < 0 || deviceID >= MidiAccessManager.Default.Outputs.ToList().Count())
-        {
-            return false;
-        }
-        this.CloseOutput();
-        this._selectedDeviceID = deviceID;
-        return true;
-    }
 
     public bool SendMidiNoteInput(bool isNoteOn, int noteNumber, int velocity)
     {
