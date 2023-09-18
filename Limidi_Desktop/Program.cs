@@ -9,12 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/*
-TODO: Make this OS Dependant instead of 
-*/
-var isWindows = true;
-if (isWindows) builder.Services.AddSingleton<IMidiEventSender, TeVirtualMidiEventSender>();
-else /*MacOS*/ builder.Services.AddSingleton<IMidiEventSender, CoreMidiMidiEventSender>();
+var isUsingVirtualMidiSdk = !true;
+if (isUsingVirtualMidiSdk) builder.Services.AddSingleton<IMidiEventSender, TeVirtualMidiEventSender>();
+else builder.Services.AddSingleton<IMidiEventSender, LegacyMidiEventSender>();
 
 
 
