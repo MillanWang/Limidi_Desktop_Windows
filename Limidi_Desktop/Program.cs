@@ -9,10 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var isUsingVirtualMidiSdk = !true;
+var isUsingVirtualMidiSdk = true; // License dependent for final release
 if (isUsingVirtualMidiSdk) builder.Services.AddSingleton<IMidiEventSender, TeVirtualMidiEventSender>();
 else builder.Services.AddSingleton<IMidiEventSender, LegacyMidiEventSender>();
-
 
 
 var app = builder.Build();
